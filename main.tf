@@ -14,7 +14,7 @@ locals {
     for rule_key, rule in var.local_traffic_rules : rule_key => (
       length(rule.network_service_ids) > 0 ? rule.network_service_ids : [
         for service_name in rule.network_service_names :
-        data.ztc_network_services.by_name["${rule_key}:${service_name}"].network_service_id
+        data.ztc_network_services.by_name["${rule_key}:${service_name}"].id
       ]
     )
   }
@@ -42,7 +42,7 @@ resource "ztc_traffic_forwarding_rule" "local_switch" {
   type           = "EC_RDR"
 
   locations {
-    id = [data.ztc_location_management.by_rule[each.key].location_id]
+    id = [data.ztc_location_management.by_rule[each.key].id]
   }
 
   src_ips        = each.value.source_cidrs
