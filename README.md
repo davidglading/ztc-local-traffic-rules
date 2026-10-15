@@ -1,8 +1,11 @@
 # Zscaler Local Traffic Forwarding Rules
 
 This Terraform project manages Zscaler Zero Trust Gateway `LOCAL_SWITCH`
-traffic-forwarding rules only. It does not create AWS VPCs, Transit Gateways,
-GWLB endpoints, or ZT Gateways.
+traffic-forwarding rules only. It does not create the associated cloud native components.
+
+Zscaler policies can be based on Workload Groups as well as CIDR blocks.
+This project's current inputs configure rules using source and destination CIDR
+blocks; using Workload Groups requires extending the rule configuration.
 
 ## Required Information
 
