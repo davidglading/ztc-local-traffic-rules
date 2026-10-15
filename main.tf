@@ -34,7 +34,7 @@ resource "ztc_traffic_forwarding_rule" "local_switch" {
   for_each = var.local_traffic_rules
 
   name           = each.value.name
-  description    = each.value.description
+  description    = each.value.description == null ? null : trimspace(each.value.description)
   forward_method = "LOCAL_SWITCH"
   order          = each.value.order
   rank           = each.value.rank
@@ -59,8 +59,15 @@ resource "terraform_data" "managed_rules" {
 
   input = {
     rule_ids = { for rule_key, rule in ztc_traffic_forwarding_rule.local_switch : rule_key => rule.rule_id }
-    # Track rule settings too, since updates usually preserve the rule IDs.
-    rules = ztc_traffic_forwarding_rule.local_switch
+    # Track configuration rather than provider-returned objects: Zscaler can
+    # normalize optional fields during apply (for example, null to false).
+    rules = {
+      for rule_key, rule in var.local_traffic_rules : rule_key => merge(rule, {
+        description         = rule.description == null ? null : trimspace(rule.description)
+        location_id         = data.ztc_location_management.by_rule[rule_key].id
+        network_service_ids = local.effective_network_service_ids[rule_key]
+      })
+    }
   }
 }
 
