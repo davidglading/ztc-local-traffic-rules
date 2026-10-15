@@ -1,0 +1,28 @@
+# Zscaler API credentials should be exported as TF_VAR_* environment variables.
+# See README.md. Do not put real credentials in this file.
+ztc_vanity_domain = "YOUR_ZTC_VANITY_DOMAIN"
+ztc_cloud         = null
+
+# Activation is deliberately disabled by default. Set true only after reviewing
+# pending tenant changes, because Zscaler activation can apply unrelated edits.
+enable_policy_activation = false
+
+local_traffic_rules = {
+  spoke1_to_spoke2 = {
+    # Must be unique in the Zscaler tenant and no more than 63 characters.
+    name              = "LOCAL_SWITCH_DEV_SPOKE1_TO_SPOKE2"
+    description       = "Permit HTTP and ICMP from spoke-1 to spoke-2"
+    location_name     = "your-ztgw-location-name"
+    source_cidrs      = ["10.192.0.0/16"]
+    destination_cidrs = ["10.193.0.0/16"]
+    network_service_names = [
+      "HTTP",
+      "ICMP_ANY",
+    ]
+    # Alternatively, specify existing Zscaler service IDs:
+    # network_service_ids = [123456, 123457]
+    order   = 1
+    rank    = 7
+    enabled = true
+  }
+}
