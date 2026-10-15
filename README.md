@@ -15,9 +15,8 @@ blocks; using Workload Groups requires extending the rule configuration.
 - Source and destination CIDR blocks
 - Zscaler network service names, such as `HTTP` and `ICMP_ANY`, or their numeric IDs
 
-The project uses the released `zscaler/ztc` provider, so it does not need the
-custom provider, Go, AWS credentials, or `TF_CLI_CONFIG_FILE` used by the
-`aws-hub-spoke` project.
+The project uses the released `zscaler/ztc` provider from the Terraform Registry.
+Terraform installs the provider automatically when you run `terraform init`.
 
 ## Authentication
 
