@@ -3,8 +3,10 @@
 ztc_vanity_domain = "YOUR_ZTC_VANITY_DOMAIN"
 ztc_cloud         = null
 
-# Activation is deliberately disabled by default. Set true only after reviewing
-# pending tenant changes, because Zscaler activation can apply unrelated edits.
+# false: save rule changes in Zscaler without activating them.
+# true: activate after Terraform creates, updates, or removes managed rules.
+# Review pending tenant changes first: activation can also apply unrelated edits.
+# terraform destroy does not activate deletions; activate those separately.
 enable_policy_activation = false
 
 local_traffic_rules = {

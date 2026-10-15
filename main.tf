@@ -59,6 +59,8 @@ resource "terraform_data" "managed_rules" {
 
   input = {
     rule_ids = { for rule_key, rule in ztc_traffic_forwarding_rule.local_switch : rule_key => rule.rule_id }
+    # Track rule settings too, since updates usually preserve the rule IDs.
+    rules = ztc_traffic_forwarding_rule.local_switch
   }
 }
 

@@ -64,5 +64,8 @@ enable_policy_activation = true
 
 Activation is disabled by default because activation can also apply unrelated
 pending changes in the tenant. Review the tenant's pending changes before
-enabling it. A destroy removes Terraform-managed rules but does not activate
-their deletion; run an activation separately if required by your tenant.
+enabling it. Set `enable_policy_activation = false` to save rule changes without
+activating them. When enabled, activation follows managed rule additions,
+updates, and removals during `terraform apply`. A destroy removes
+Terraform-managed rules but does not activate their deletion; run an activation
+separately if required by your tenant.

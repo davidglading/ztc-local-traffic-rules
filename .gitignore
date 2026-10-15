@@ -1,8 +1,39 @@
+# Terraform
 .terraform/
 *.tfstate
 *.tfstate.*
 *.tfplan
+tfplan
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Keep the provider lock file committed.
+!.terraform.lock.hcl
+
+# Sensitive files
 terraform.tfvars
 terraform.tfvars.*
+*.auto.tfvars
+*.auto.tfvars.json
 !terraform.tfvars.example
 .env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Provider / binary artifacts
+terraform-provider-*
+*.bin
+*.zip
+terraformrc.ztgw
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
